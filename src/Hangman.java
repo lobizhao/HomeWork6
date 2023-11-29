@@ -36,22 +36,15 @@ public class Hangman {
 		while (Integer.bitCount(revealedMask) != wordLength) {
 			printStatus(revealedMask);
 			char c = getInput();
-			int mask = getMaskWithMaxChoices(c);;
-			wordFamily = wordFamily.stream().filter(w -> getMask(w, c) == mask).toList();
+			int mask = getMaskWithMaxChoices(c);
+
+			Solution getSlution = new Solution();
+			wordFamily = wordFamily.stream().filter(w -> getSlution.getMask(w, c) == mask).toList();
 			revealedMask |= mask;
 		}
 		printVictory();
 	}
 
-	private int getMask(String word, char c) {
-		int mask = 0;
-		for (int i = 0; i < word.length(); ++i) {
-			if (word.charAt(i) == c) {
-				mask |= 1 << i;
-			}
-		}
-		return mask;
-	}
 
 	private int getMaskWithMaxChoices(char c) {
 		int ret = 0;
@@ -59,7 +52,9 @@ public class Hangman {
 		var counter = new HashMap<Integer, Integer>();
 
 		for (var word : wordFamily) {
-			int mask = getMask(word, c);
+			Solution getSlution = new Solution();
+
+			int mask =getSlution.getMask(word, c);
 			if (counter.containsKey(mask)) {
 				counter.put(mask, counter.get(mask) + 1);
 			} else {
@@ -126,7 +121,6 @@ public class Hangman {
 		}
 		System.out.println();
 	}
-
 	private void printVictory() {
 		System.out.printf("Congrats! The word was %s%n", wordFamily.get(0));
 	}
