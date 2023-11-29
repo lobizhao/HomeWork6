@@ -11,6 +11,7 @@ public class Hangman {
 	private final int wordLength;
 
 	public Hangman() {
+		//get dictionary
 		this("engDictionary.txt");
 	}
 
@@ -52,9 +53,8 @@ public class Hangman {
 		var counter = new HashMap<Integer, Integer>();
 
 		for (var word : wordFamily) {
-			Solution getSlution = new Solution();
-
-			int mask =getSlution.getMask(word, c);
+			Solution getSolution = new Solution();
+			int mask =getSolution.getMask(word, c);
 			if (counter.containsKey(mask)) {
 				counter.put(mask, counter.get(mask) + 1);
 			} else {
